@@ -30,11 +30,18 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-gradle-
 
+    - name: Install Gradle 4.0.1
+      run: |
+        wget https://services.gradle.org/distributions/gradle-4.0.1-bin.zip
+        unzip gradle-4.0.1-bin.zip
+        sudo mv gradle-4.0.1 /opt/gradle
+        sudo ln -s /opt/gradle/bin/gradle /usr/local/bin/gradle
+
     - name: Set up Android SDK
       uses: android-actions/setup-android@v2
       with:
         api-level: 28
         build-tools: 28.0.3
 
-    - name: Build Android app
-      run: ./gradlew assembleRelease
+    - name: Build Android app with Gradle 4.0.1
+      run: gradle assembleRelease
