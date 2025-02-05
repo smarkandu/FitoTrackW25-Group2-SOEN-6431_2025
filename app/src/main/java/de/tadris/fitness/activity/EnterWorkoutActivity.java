@@ -47,7 +47,8 @@ public class EnterWorkoutActivity extends InformationActivity implements SelectW
 
     WorkoutBuilder workoutBuilder = new WorkoutBuilder();
     TextView typeTextView, dateTextView, timeTextView, durationTextView;
-    EditText distanceEditText, commentEditText;
+    EditText distanceEditText;
+    EditText commentEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
