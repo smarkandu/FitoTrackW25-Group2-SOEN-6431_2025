@@ -62,7 +62,6 @@ public class EnterWorkoutActivity extends InformationActivity implements SelectW
         KeyValueLine typeLine = addKeyValueLine(getString(R.string.type));
         typeTextView = typeLine.value;
         typeLine.lineRoot.setOnClickListener(v -> showTypeSelection());
-
         distanceEditText = new EditText(this);
         distanceEditText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
         distanceEditText.setSingleLine(true);
