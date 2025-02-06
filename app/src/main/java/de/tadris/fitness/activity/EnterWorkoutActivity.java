@@ -69,13 +69,15 @@ public class EnterWorkoutActivity extends InformationActivity implements SelectW
         distanceEditText.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
         distanceEditText.setOnEditorActionListener((v, actionId, event) -> {
             // If the User clicks on the finish button on the keyboard, continue by showing the date selection
-            if ((actionId == EditorInfo.IME_ACTION_SEARCH ||
+            if (actionId == EditorInfo.IME_ACTION_SEARCH ||
                     actionId == EditorInfo.IME_ACTION_DONE ||
-                    (event != null && event.getAction() == KeyEvent.ACTION_DOWN &&
-                            event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) &&
-                    (event == null || !event.isShiftPressed())) {
-                showDateSelection();
-                return true;
+                    event != null &&
+                            event.getAction() == KeyEvent.ACTION_DOWN &&
+                            event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
+                if (event == null || !event.isShiftPressed()) {
+                    showDateSelection();
+                    return true;
+                }
             }
             return false;
         });
