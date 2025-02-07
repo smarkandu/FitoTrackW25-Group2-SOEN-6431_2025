@@ -71,11 +71,10 @@ public class EnterWorkoutActivity extends InformationActivity implements SelectW
             // If the User clicks on the finish button on the keyboard, continue by showing the date selection
             if ((actionId == EditorInfo.IME_ACTION_SEARCH ||
                     actionId == EditorInfo.IME_ACTION_DONE ||
-                    (event != null && event.getAction() == KeyEvent.ACTION_DOWN &&
-                            event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) &&
-                    (event == null || !event.isShiftPressed())) {
-                showDateSelection();
-                return true;
+                    (event != null && event.getAction() == KeyEvent.ACTION_DOWN && event.getKeyCode() == KeyEvent.KEYCODE_ENTER))
+                    && (event == null || !event.isShiftPressed())) {
+                  showDateSelection();
+                  return true;
             }
             return false;
         });
@@ -202,8 +201,9 @@ public class EnterWorkoutActivity extends InformationActivity implements SelectW
             case android.R.id.home:
                 finish();
                 return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
-        return super.onOptionsItemSelected(item);
     }
 
     private void setupActionBar() {
