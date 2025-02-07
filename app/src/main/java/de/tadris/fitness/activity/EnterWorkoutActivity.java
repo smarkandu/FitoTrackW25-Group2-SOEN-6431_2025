@@ -204,8 +204,9 @@ public class EnterWorkoutActivity extends InformationActivity implements SelectW
             case android.R.id.home:
                 finish();
                 return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
-        return super.onOptionsItemSelected(item);
     }
 
     private void setupActionBar() {
