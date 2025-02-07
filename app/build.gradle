@@ -30,7 +30,6 @@ allprojects {
 
 android {
     compileSdkVersion 28
-
     buildToolsVersion "29.0.2"
     defaultConfig {
         applicationId "de.tadris.fitness"
