@@ -73,9 +73,8 @@ public class EnterWorkoutActivity extends InformationActivity implements SelectW
                     actionId == EditorInfo.IME_ACTION_DONE ||
                     (event != null && event.getAction() == KeyEvent.ACTION_DOWN && event.getKeyCode() == KeyEvent.KEYCODE_ENTER))
                     && (event == null || !event.isShiftPressed())) {
-
-                showDateSelection();
-                return true;
+                  showDateSelection();
+                  return true;
             }
             return false;
         });
@@ -120,7 +119,7 @@ public class EnterWorkoutActivity extends InformationActivity implements SelectW
             Toast.makeText(this, R.string.errorEnterValidDuration, Toast.LENGTH_LONG).show();
             return;
         }
-        ShowWorkoutActivity.selectedWorkout = workoutBuilder.insertWorkout(this);
+        WorkoutActivity.setSelectedWorkout(workoutBuilder.insertWorkout(this));
         startActivity(new Intent(this, ShowWorkoutActivity.class));
         finish();
     }
