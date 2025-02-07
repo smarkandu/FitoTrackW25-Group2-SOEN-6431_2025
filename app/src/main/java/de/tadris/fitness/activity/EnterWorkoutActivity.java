@@ -122,7 +122,7 @@ public class EnterWorkoutActivity extends InformationActivity implements SelectW
             Toast.makeText(this, R.string.errorEnterValidDuration, Toast.LENGTH_LONG).show();
             return;
         }
-        ShowWorkoutActivity.setSelectedWorkout(workoutBuilder.insertWorkout(this));
+        WorkoutActivity.setSelectedWorkout(workoutBuilder.insertWorkout(this));
         startActivity(new Intent(this, ShowWorkoutActivity.class));
         finish();
     }
