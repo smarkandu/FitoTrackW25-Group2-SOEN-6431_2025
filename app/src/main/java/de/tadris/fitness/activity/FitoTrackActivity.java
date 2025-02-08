@@ -33,7 +33,7 @@ import androidx.core.app.ActivityCompat;
 import de.tadris.fitness.Instance;
 import de.tadris.fitness.R;
 
-abstract public class FitoTrackActivity extends Activity {
+public abstract class FitoTrackActivity extends Activity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
