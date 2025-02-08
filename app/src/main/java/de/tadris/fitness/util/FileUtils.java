@@ -21,6 +21,8 @@ import de.tadris.fitness.R;
 
 public class FileUtils {
 
+
+
     public static void saveOrShareFile(Activity activity, Uri uri, String suffix) {
         String[] colors = {activity.getString(R.string.share), activity.getString(R.string.save)};
 
