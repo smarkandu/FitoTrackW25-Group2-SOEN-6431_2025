@@ -181,6 +181,8 @@ public class RecordWorkoutActivity extends FitoTrackActivity implements Location
                     mHandler.post(this::updateDescription);
                 }
             }catch (InterruptedException e){
+                // Restore the interrupt status to ensure the caller is aware of the interruption.
+                Thread.currentThread().interrupt();
                 e.printStackTrace();
             }
         }).start();
