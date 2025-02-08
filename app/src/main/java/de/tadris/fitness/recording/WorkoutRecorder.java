@@ -101,7 +101,6 @@ public class WorkoutRecorder implements LocationListener.LocationChangeListener 
                     checkSignalState();
                     synchronized (samples){
                         if(samples.size() > 2){
-                            WorkoutSample lastSample= samples.get(samples.size()-1);
                             long timeDiff= System.currentTimeMillis() - lastSampleTime;
                             if(timeDiff > AUTO_STOP_TIMEOUT){
                                 if(isActive()){
