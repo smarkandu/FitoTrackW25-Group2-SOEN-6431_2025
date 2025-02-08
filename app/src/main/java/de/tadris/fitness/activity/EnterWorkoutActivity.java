@@ -50,7 +50,8 @@ public class EnterWorkoutActivity extends InformationActivity implements SelectW
     TextView dateTextView;
     TextView timeTextView;
     TextView durationTextView;
-    EditText distanceEditText, commentEditText;
+    EditText distanceEditText;
+    EditText commentEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
