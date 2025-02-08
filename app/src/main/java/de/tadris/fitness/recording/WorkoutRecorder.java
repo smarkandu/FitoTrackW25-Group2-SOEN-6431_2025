@@ -229,7 +229,7 @@ public class WorkoutRecorder implements LocationListener.LocationChangeListener 
         sample.speed= location.getSpeed();
         sample.relativeTime= location.getTime() - workout.start - pauseTime;
         sample.absoluteTime= location.getTime();
-        if(Instance.getInstance(context).isPressureAvailable()){
+        if(Instance.getInstance(context).pressureAvailable){
             sample.tmpPressure= Instance.getInstance(context).lastPressure;
         }else{
             sample.tmpPressure= -1;
