@@ -235,6 +235,7 @@ public class WorkoutRecorder implements LocationListener.LocationChangeListener 
         }else{
             sample.tmpPressure= -1;
         }
+
         synchronized (samples){
             samples.add(sample);
         }
