@@ -221,6 +221,7 @@ public class WorkoutRecorder implements LocationListener.LocationChangeListener 
         }
     }
 
+
     private void addToSamples(Location location){
         WorkoutSample sample= new WorkoutSample();
         sample.lat= location.getLatitude();
