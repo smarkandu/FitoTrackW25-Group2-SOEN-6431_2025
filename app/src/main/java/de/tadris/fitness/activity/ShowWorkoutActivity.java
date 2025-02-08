@@ -149,7 +149,7 @@ public class ShowWorkoutActivity extends WorkoutActivity implements DialogUtils.
             str += getString(R.string.workoutEdited);
         }
         if (workout.comment != null && workout.comment.length() > 0) {
-            if (str.length() > 0) {
+            if (!str.isEmpty()) {
                 str += "\n";
             }
             str += getString(R.string.comment) + ": " + workout.comment;
