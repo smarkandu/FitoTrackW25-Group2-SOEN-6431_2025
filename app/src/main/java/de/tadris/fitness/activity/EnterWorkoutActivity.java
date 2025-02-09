@@ -46,7 +46,10 @@ import de.tadris.fitness.util.unit.UnitUtils;
 public class EnterWorkoutActivity extends InformationActivity implements SelectWorkoutTypeDialog.WorkoutTypeSelectListener, DatePickerFragment.DatePickerCallback, TimePickerFragment.TimePickerCallback, DurationPickerDialogFragment.DurationPickListener {
 
     WorkoutBuilder workoutBuilder = new WorkoutBuilder();
-    TextView typeTextView, dateTextView, timeTextView, durationTextView;
+    TextView typeTextView;
+    TextView dateTextView;
+    TextView timeTextView;
+    TextView durationTextView;
     EditText distanceEditText, commentEditText;
 
     @Override
