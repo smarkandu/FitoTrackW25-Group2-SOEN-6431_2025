@@ -17,6 +17,7 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+
 package de.tadris.fitness.activity;
 
 import android.content.Intent;
@@ -82,6 +83,9 @@ public class EnterWorkoutActivity extends InformationActivity implements SelectW
             }
             return false;
         });
+
+
+
         addKeyValueLine(getString(R.string.workoutDistance), distanceEditText, UnitUtils.CHOSEN_SYSTEM.getLongDistanceUnit());
 
 
