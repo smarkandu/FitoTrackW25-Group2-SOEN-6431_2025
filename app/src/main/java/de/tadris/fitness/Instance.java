@@ -54,23 +54,7 @@ public class Instance {
     public final FitoTrackThemes themes;
 
     private boolean pressureAvailable= false;
-
-    public boolean getPressureAvailable() {
-        return pressureAvailable;
-    }
-
-    public void setPressureAvailable(boolean pressureAvailable) {
-        this.pressureAvailable = pressureAvailable;
-    }
-    private float lastPressure = 0.0f;
-
-    public float getLastPressure() {
-        return lastPressure;
-    }
-
-    public void setLastPressure(float lastPressure) {
-        this.lastPressure = lastPressure;
-    }
+    public float lastPressure= 0;
 
     private Instance(Context context) {
         userPreferences= new UserPreferences(context);
@@ -125,5 +109,13 @@ public class Instance {
                 .allowMainThreadQueries()
                 .build();
         UnitUtils.setUnit(context);
+    }
+
+    public boolean isPressureAvailable() {
+        return pressureAvailable;
+    }
+
+    public void setPressureAvailable(boolean pressureAvailable) {
+        this.pressureAvailable = pressureAvailable;
     }
 }
