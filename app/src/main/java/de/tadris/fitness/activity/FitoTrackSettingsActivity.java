@@ -19,6 +19,7 @@
 
 package de.tadris.fitness.activity;
 
+import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
@@ -53,6 +54,17 @@ public abstract class FitoTrackSettingsActivity extends PreferenceActivity {
                 .setMessage(getString(message) + "\n\n" + e.getMessage())
                 .setPositiveButton(R.string.okay, null)
                 .create().show();
+    }
+
+    /**
+     * Set up the {@link android.app.ActionBar}, if the API is available.
+     */
+    protected void setupActionBar() {
+        ActionBar actionBar = getActionBar();
+        if (actionBar != null) {
+            // Show the Up button in the action bar.
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
     }
 
     /**
