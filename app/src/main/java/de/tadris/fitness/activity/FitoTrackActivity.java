@@ -51,14 +51,7 @@ abstract public class FitoTrackActivity extends Activity {
     protected void showErrorDialog(Exception e, @StringRes int title, @StringRes int message) {
         DialogUtils.showErrorDialog(this, e, title, message);
     }
-
-//    void showErrorDialog(Exception e, @StringRes int title, @StringRes int message) {
-//        new AlertDialog.Builder(this)
-//                .setTitle(title)
-//                .setMessage(getString(message) + "\n\n" + e.getMessage())
-//                .setPositiveButton(R.string.okay, null)
-//                .create().show();
-//    }
+    
 
     protected void requestStoragePermissions() {
         if (!hasStoragePermission()) {
