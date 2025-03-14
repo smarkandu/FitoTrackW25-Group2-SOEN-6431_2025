@@ -53,7 +53,7 @@ public class Instance {
     public final UserPreferences userPreferences;
     public final FitoTrackThemes themes;
 
-    public boolean pressureAvailable= false;
+    private boolean pressureAvailable= false;
     public float lastPressure= 0;
 
     private Instance(Context context) {
@@ -109,5 +109,13 @@ public class Instance {
                 .allowMainThreadQueries()
                 .build();
         UnitUtils.setUnit(context);
+    }
+
+    public boolean isPressureAvailable() {
+        return pressureAvailable;
+    }
+
+    public void setPressureAvailable(boolean pressureAvailable) {
+        this.pressureAvailable = pressureAvailable;
     }
 }

@@ -65,10 +65,10 @@ public class PressureService extends Service {
         pressureListener= new PressureListener();
 
         if (pressureSensor != null){
-            instance.pressureAvailable= true;
+            instance.setPressureAvailable(true);
             sensorManager.registerListener(pressureListener, pressureSensor, SensorManager.SENSOR_DELAY_NORMAL);
         } else {
-            instance.pressureAvailable= false;
+            instance.setPressureAvailable(false);
         }
     }
 

@@ -115,7 +115,7 @@ public class ListWorkoutsActivity extends FitoTrackActivity implements WorkoutAd
 
     @Override
     public void onItemClick(int pos, Workout workout) {
-        ShowWorkoutActivity.selectedWorkout= workout;
+        WorkoutActivity.setSelectedWorkout(workout);
         startActivity(new Intent(this, ShowWorkoutActivity.class));
     }
 

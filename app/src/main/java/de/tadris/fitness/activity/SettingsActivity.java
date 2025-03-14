@@ -140,11 +140,7 @@ public class SettingsActivity extends FitoTrackSettingsActivity {
                     FileUtils.saveOrShareFile(this, uri, "ftb");
                 });
             }catch (Exception e){
-                e.printStackTrace();
-                mHandler.post(() -> {
-                    dialogController.cancel();
-                    showErrorDialog(e, R.string.error, R.string.errorExportFailed);
-                });
+                handleError(e, dialogController);
             }
         }).start();
     }
@@ -202,11 +198,7 @@ public class SettingsActivity extends FitoTrackSettingsActivity {
 
                 mHandler.post(dialogController::cancel);
             }catch (Exception e){
-                e.printStackTrace();
-                mHandler.post(() -> {
-                    dialogController.cancel();
-                    showErrorDialog(e, R.string.error, R.string.errorImportFailed);
-                });
+                handleError(e, dialogController);
             }
         }).start();
     }
