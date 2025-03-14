@@ -59,7 +59,7 @@ import de.tadris.fitness.util.unit.UnitUtils;
 
 public abstract class WorkoutActivity extends InformationActivity {
 
-    public static Workout selectedWorkout;
+    private static Workout selectedWorkout;
 
     List<WorkoutSample> samples;
     Workout workout;
@@ -331,4 +331,11 @@ public abstract class WorkoutActivity extends InformationActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    public static Workout getSelectedWorkout() {
+        return selectedWorkout;
+    }
+
+    public static void setSelectedWorkout(Workout selectedWorkout) {
+        WorkoutActivity.selectedWorkout = selectedWorkout;
+    }
 }

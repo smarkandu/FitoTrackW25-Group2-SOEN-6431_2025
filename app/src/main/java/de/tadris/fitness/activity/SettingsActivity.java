@@ -140,11 +140,7 @@ public class SettingsActivity extends FitoTrackSettingsActivity {
                     FileUtils.saveOrShareFile(this, uri, "ftb");
                 });
             }catch (Exception e){
-                e.printStackTrace();
-                mHandler.post(() -> {
-                    dialogController.cancel();
-                    showErrorDialog(e, R.string.error, R.string.errorExportFailed);
-                });
+                handleError(e, dialogController);
             }
         }).start();
     }
@@ -202,11 +198,7 @@ public class SettingsActivity extends FitoTrackSettingsActivity {
 
                 mHandler.post(dialogController::cancel);
             }catch (Exception e){
-                e.printStackTrace();
-                mHandler.post(() -> {
-                    dialogController.cancel();
-                    showErrorDialog(e, R.string.error, R.string.errorImportFailed);
-                });
+                handleError(e, dialogController);
             }
         }).start();
     }
@@ -239,14 +231,18 @@ public class SettingsActivity extends FitoTrackSettingsActivity {
     }
 
     /**
-     * Set up the {@link android.app.ActionBar}, if the API is available.
+     * Handles errors by logging the exception, canceling the progress dialog,
+     * and displaying an error message to the user.
+     *
+     * @param e The exception that was caught.
+     * @param dialogController The progress dialog controller to be canceled.
      */
-    private void setupActionBar() {
-        ActionBar actionBar = getActionBar();
-        if (actionBar != null) {
-            // Show the Up button in the action bar.
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
+    private void handleError(Exception e, ProgressDialogController dialogController) {
+        e.printStackTrace();
+        mHandler.post(() -> {
+            dialogController.cancel();
+            showErrorDialog(e, R.string.error, R.string.errorExportFailed);
+        });
     }
 
 }
