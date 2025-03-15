@@ -90,6 +90,14 @@ public class SettingsActivity extends FitoTrackSettingsActivity {
 
     private VoiceAnnouncements voiceAnnouncements;
 
+    private boolean checkAndRequestPermissions() {
+        if (!hasPermission()) {
+            requestPermissions();
+            return false;
+        }
+        return true;
+    }
+
     private void checkTTSandShowConfig() {
         voiceAnnouncements = new VoiceAnnouncements(this, available -> {
             if (available) {
@@ -109,8 +117,7 @@ public class SettingsActivity extends FitoTrackSettingsActivity {
     }
 
     private void showExportDialog() {
-        if (!hasPermission()) {
-            requestPermissions();
+        if (!checkAndRequestPermissions()) {
             return;
         }
         new AlertDialog.Builder(this)
@@ -146,8 +153,7 @@ public class SettingsActivity extends FitoTrackSettingsActivity {
     }
 
     private void showImportDialog() {
-        if(!hasPermission()){
-            requestPermissions();
+        if (!checkAndRequestPermissions()) {
             return;
         }
         new AlertDialog.Builder(this)
@@ -174,7 +180,9 @@ public class SettingsActivity extends FitoTrackSettingsActivity {
         intent.addCategory(Intent.CATEGORY_OPENABLE);
         try {
             startActivityForResult(Intent.createChooser(intent, getString(R.string.chooseBackupFile)), FILE_SELECT_CODE);
-        } catch (android.content.ActivityNotFoundException ignored) { }
+        } catch (android.content.ActivityNotFoundException ignored) {
+            Toast.makeText(this, "File manager not found", Toast.LENGTH_LONG).show();
+        }
     }
 
     @Override
