@@ -40,6 +40,7 @@ public abstract class FitoTrackTileSource extends AbstractTileSource {
 
     public abstract String getName();
 
+    @Override
     public int getParallelRequestsLimit() {
         return PARALLEL_REQUESTS_LIMIT;
     }
