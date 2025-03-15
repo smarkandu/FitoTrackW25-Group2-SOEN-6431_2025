@@ -19,9 +19,14 @@
 
 package de.tadris.fitness.map.tilesource;
 
+import org.mapsforge.core.model.Tile;
 import org.mapsforge.map.layer.download.tilesource.AbstractTileSource;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+
 public abstract class FitoTrackTileSource extends AbstractTileSource {
+    private static final int PARALLEL_REQUESTS_LIMIT = 8;
 
     FitoTrackTileSource(String[] hostNames, int port) {
         super(hostNames, port);
@@ -34,4 +39,15 @@ public abstract class FitoTrackTileSource extends AbstractTileSource {
     }
 
     public abstract String getName();
+
+    @Override
+    public int getParallelRequestsLimit() {
+        return PARALLEL_REQUESTS_LIMIT;
+    }
+
+    @Override
+    public URL getTileUrl(Tile tile) throws MalformedURLException {
+
+        return new URL(TileConstantManager.getInstance().getHTTPS_PROTOCOL(), getHostName(), this.port, "/hot/" + tile.zoomLevel + '/' + tile.tileX + '/' + tile.tileY + ".png");
+    }
 }
