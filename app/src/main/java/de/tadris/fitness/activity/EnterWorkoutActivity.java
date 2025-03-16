@@ -51,6 +51,7 @@ public class EnterWorkoutActivity extends InformationActivity implements SelectW
     TextView dateTextView;
     TextView timeTextView;
     TextView durationTextView;
+  
     EditText distanceEditText;
     EditText commentEditText;
 

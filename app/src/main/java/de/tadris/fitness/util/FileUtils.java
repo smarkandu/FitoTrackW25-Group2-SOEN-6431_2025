@@ -21,6 +21,8 @@ import de.tadris.fitness.R;
 
 public class FileUtils {
 
+    private static final String LOG_TAG_EXPORT = "Export";
+
     public static void saveOrShareFile(Activity activity, Uri uri, String suffix) {
         String[] colors = {activity.getString(R.string.share), activity.getString(R.string.save)};
 
@@ -66,10 +68,10 @@ public class FileUtils {
 
         activity.startActivity(Intent.createChooser(intentShareFile, activity.getString(R.string.shareFile)));
 
-        Log.d("Export", uri.toString());
-        Log.d("Export", activity.getContentResolver().getType(uri));
+        Log.d(LOG_TAG_EXPORT, uri.toString());
+        Log.d(LOG_TAG_EXPORT, activity.getContentResolver().getType(uri));
         try {
-            Log.d("Export", new BufferedInputStream(activity.getContentResolver().openInputStream(uri)).toString());
+            Log.d(LOG_TAG_EXPORT, new BufferedInputStream(activity.getContentResolver().openInputStream(uri)).toString());
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
