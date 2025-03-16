@@ -16,7 +16,6 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 package de.tadris.fitness.activity;
 
 import android.app.AlertDialog;
@@ -90,7 +89,6 @@ public class ShowWorkoutActivity extends WorkoutActivity implements DialogUtils.
 
         }
 
-
         addTitle(getString(R.string.workoutSpeed));
 
         addKeyValue(getString(R.string.workoutAvgSpeedShort), UnitUtils.getSpeed(workout.avgSpeed),
@@ -105,7 +103,7 @@ public class ShowWorkoutActivity extends WorkoutActivity implements DialogUtils.
 
         addTitle(getString(R.string.workoutBurnedEnergy));
         addKeyValue(getString(R.string.workoutTotalEnergy), workout.calorie + " kcal",
-                getString(R.string.workoutEnergyConsumption), UnitUtils.getRelativeEnergyConsumption((double)workout.calorie / ((double)workout.length / 1000)));
+                getString(R.string.workoutEnergyConsumption), UnitUtils.getRelativeEnergyConsumption((double) workout.calorie / ((double) workout.length / 1000)));
 
         if (hasSamples()) {
             addTitle(getString(R.string.height));
@@ -118,17 +116,15 @@ public class ShowWorkoutActivity extends WorkoutActivity implements DialogUtils.
             heightDiagram.setOnClickListener(v -> startDiagramActivity(ShowWorkoutMapDiagramActivity.DIAGRAM_TYPE_HEIGHT));
         }
 
-
     }
 
     private void startDiagramActivity(String diagramType) {
-        ShowWorkoutMapDiagramActivity.DIAGRAM_TYPE= diagramType;
+        ShowWorkoutMapDiagramActivity.DIAGRAM_TYPE = diagramType;
         startActivity(new Intent(ShowWorkoutActivity.this, ShowWorkoutMapDiagramActivity.class));
     }
 
-
     private void openEditCommentDialog() {
-        final EditText editText= new EditText(this);
+        final EditText editText = new EditText(this);
         editText.setText(workout.comment);
         editText.setSingleLine(true);
         new AlertDialog.Builder(this)
@@ -138,7 +134,7 @@ public class ShowWorkoutActivity extends WorkoutActivity implements DialogUtils.
     }
 
     private void changeComment(String comment) {
-        workout.comment= comment;
+        workout.comment = comment;
         Instance.getInstance(this).db.workoutDao().updateWorkout(workout);
         updateCommentText();
     }
@@ -148,7 +144,8 @@ public class ShowWorkoutActivity extends WorkoutActivity implements DialogUtils.
         if (workout.edited) {
             str += getString(R.string.workoutEdited);
         }
-        if (workout.comment != null && workout.comment.length() > 0) {
+ 
+        if (workout.comment != null && !workout.comment.isEmpty()) {
             if (!str.isEmpty()) {
                 str += "\n";
             }
@@ -164,7 +161,6 @@ public class ShowWorkoutActivity extends WorkoutActivity implements DialogUtils.
         return SimpleDateFormat.getDateInstance().format(new Date(workout.start));
     }
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -172,45 +168,46 @@ public class ShowWorkoutActivity extends WorkoutActivity implements DialogUtils.
         return true;
     }
 
-    public void deleteWorkout(){
+    public void deleteWorkout() {
         Instance.getInstance(this).db.workoutDao().deleteWorkout(workout);
         finish();
     }
 
-    private void showDeleteDialog(){
+    private void showDeleteDialog() {
         DialogUtils.showDeleteWorkoutDialog(this, this);
     }
 
-    private void exportToGpx(){
+    private void exportToGpx() {
         if (!hasStoragePermission()) {
             requestStoragePermissions();
             return;
         }
-        ProgressDialogController dialogController= new ProgressDialogController(this, getString(R.string.exporting));
+        ProgressDialogController dialogController = new ProgressDialogController(this, getString(R.string.exporting));
         dialogController.setIndeterminate(true);
         dialogController.show();
         new Thread(() -> {
-            try{
-                String file= getFilesDir().getAbsolutePath() + "/shared/workout.gpx";
+            try {
+                String file = getFilesDir().getAbsolutePath() + "/shared/workout.gpx";
                 File parent = new File(file).getParentFile();
                 if (!parent.exists() && !parent.mkdirs()) {
                     throw new IOException("Cannot write to " + file);
                 }
-                Uri uri= FileProvider.getUriForFile(getBaseContext(), "de.tadris.fitness.fileprovider", new File(file));
+                Uri uri = FileProvider.getUriForFile(getBaseContext(), "de.tadris.fitness.fileprovider", new File(file));
 
                 GpxExporter.exportWorkout(getBaseContext(), workout, new File(file));
                 dialogController.cancel();
                 mHandler.post(() -> FileUtils.saveOrShareFile(this, uri, "gpx"));
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
                 mHandler.post(() -> showErrorDialog(e, R.string.error, R.string.errorGpxExportFailed));
             }
         }).start();
     }
 
-    private OAuthConsumer oAuthConsumer= null;
-    private void prepareUpload(){
-        OAuthAuthentication authentication= new OAuthAuthentication(mHandler, this, new OAuthAuthentication.OAuthAuthenticationListener() {
+    private OAuthConsumer oAuthConsumer = null;
+
+    private void prepareUpload() {
+        OAuthAuthentication authentication = new OAuthAuthentication(mHandler, this, new OAuthAuthentication.OAuthAuthenticationListener() {
             @Override
             public void authenticationFailed() {
                 new AlertDialog.Builder(ShowWorkoutActivity.this)
@@ -222,7 +219,7 @@ public class ShowWorkoutActivity extends WorkoutActivity implements DialogUtils.
 
             @Override
             public void authenticationComplete(OAuthConsumer consumer) {
-                oAuthConsumer= consumer;
+                oAuthConsumer = consumer;
                 showUploadOptions();
             }
         });
@@ -231,21 +228,28 @@ public class ShowWorkoutActivity extends WorkoutActivity implements DialogUtils.
     }
 
     private AlertDialog dialog = null;
-    private void showUploadOptions(){
-        dialog= new AlertDialog.Builder(this)
+
+    private void showUploadOptions() {
+        dialog = new AlertDialog.Builder(this)
                 .setTitle(R.string.actionUploadToOSM)
                 .setView(R.layout.dialog_upload_osm)
                 .setPositiveButton(R.string.upload, (dialogInterface, i) -> {
-                    CheckBox checkBox= dialog.findViewById(R.id.uploadCutting);
-                    Spinner spinner= dialog.findViewById(R.id.uploadVisibility);
-                    EditText descriptionEdit= dialog.findViewById(R.id.uploadDescription);
-                    String description= descriptionEdit.getText().toString().trim();
+                    CheckBox checkBox = dialog.findViewById(R.id.uploadCutting);
+                    Spinner spinner = dialog.findViewById(R.id.uploadVisibility);
+                    EditText descriptionEdit = dialog.findViewById(R.id.uploadDescription);
+                    String description = descriptionEdit.getText().toString().trim();
                     GpsTraceDetails.Visibility visibility;
-                    switch (spinner.getSelectedItemPosition()){
-                        case 0: visibility= GpsTraceDetails.Visibility.IDENTIFIABLE; break;
+                    switch (spinner.getSelectedItemPosition()) {
+                        case 0:
+                            visibility = GpsTraceDetails.Visibility.IDENTIFIABLE;
+                            break;
                         default:
-                        case 1: visibility= GpsTraceDetails.Visibility.TRACKABLE; break;
-                        case 2: visibility= GpsTraceDetails.Visibility.PRIVATE; break;
+                        case 1:
+                            visibility = GpsTraceDetails.Visibility.TRACKABLE;
+                            break;
+                        case 2:
+                            visibility = GpsTraceDetails.Visibility.PRIVATE;
+                            break;
                     }
                     uploadToOsm(checkBox.isChecked(), visibility, description);
                 })
@@ -253,7 +257,7 @@ public class ShowWorkoutActivity extends WorkoutActivity implements DialogUtils.
                 .show();
     }
 
-    private void uploadToOsm(boolean cut, GpsTraceDetails.Visibility visibility, String description){
+    private void uploadToOsm(boolean cut, GpsTraceDetails.Visibility visibility, String description) {
         List<WorkoutSample> samples = new ArrayList<>(this.samples);
         new OsmTraceUploader(this, mHandler, workout, samples, visibility, oAuthConsumer, cut, description).upload();
     }
@@ -261,7 +265,7 @@ public class ShowWorkoutActivity extends WorkoutActivity implements DialogUtils.
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        switch(id){
+        switch (id) {
             case R.id.actionDeleteWorkout:
                 showDeleteDialog();
                 return true;

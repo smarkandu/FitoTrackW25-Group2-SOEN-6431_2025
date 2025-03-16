@@ -174,7 +174,9 @@ public class SettingsActivity extends FitoTrackSettingsActivity {
         intent.addCategory(Intent.CATEGORY_OPENABLE);
         try {
             startActivityForResult(Intent.createChooser(intent, getString(R.string.chooseBackupFile)), FILE_SELECT_CODE);
-        } catch (android.content.ActivityNotFoundException ignored) { }
+        } catch (android.content.ActivityNotFoundException ignored) {
+            Log.e("ImportBackup", "No file picker available", e);
+         }
     }
 
     @Override

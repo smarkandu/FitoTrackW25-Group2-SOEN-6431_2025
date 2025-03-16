@@ -34,7 +34,7 @@ import de.tadris.fitness.Instance;
 import de.tadris.fitness.R;
 import de.tadris.fitness.util.DialogUtils;
 
-abstract public class FitoTrackActivity extends Activity {
+public abstract class FitoTrackActivity extends Activity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
