@@ -22,20 +22,18 @@ package de.tadris.fitness.map.tilesource;
 import org.mapsforge.core.model.Tile;
 
 import java.net.MalformedURLException;
-import java.net.URL;
 
 public class MapnikTileSource extends FitoTrackTileSource {
 
     public static final MapnikTileSource INSTANCE = new MapnikTileSource(new String[]{
             "a.tile.openstreetmap.org", "b.tile.openstreetmap.org", "c.tile.openstreetmap.org"}, 443);
-    private static final int PARALLEL_REQUESTS_LIMIT = 8;
-    private static final String PROTOCOL = "https";
     private static final int ZOOM_LEVEL_MAX = 19;
     private static final int ZOOM_LEVEL_MIN = 0;
     private static final String NAME = "OSM Mapnik";
+    private static final String PROTOCOL = "https";
 
-    private MapnikTileSource(String[] hostnames, int port) {
-        super(hostnames, port, (byte) ZOOM_LEVEL_MIN, (byte) ZOOM_LEVEL_MAX);
+    private MapnikTileSource(String[] hostNames, int port) {
+        super(hostNames, port, (byte) ZOOM_LEVEL_MIN, (byte) ZOOM_LEVEL_MAX, 8);
     }
 
     @Override
@@ -43,14 +41,9 @@ public class MapnikTileSource extends FitoTrackTileSource {
         return NAME;
     }
 
+    // Instead of overriding getTileUrl, we implement buildTileUrlPath.
     @Override
-    public int getParallelRequestsLimit() {
-        return PARALLEL_REQUESTS_LIMIT;
-    }
-
-    @Override
-    public URL getTileUrl(Tile tile) throws MalformedURLException {
-
-        return new URL(PROTOCOL, getHostName(), this.port, "/" + tile.zoomLevel + '/' + tile.tileX + '/' + tile.tileY + ".png");
+    protected String buildTileUrlPath(Tile tile) {
+        return "/" + tile.zoomLevel + '/' + tile.tileX + '/' + tile.tileY + ".png";
     }
 }
