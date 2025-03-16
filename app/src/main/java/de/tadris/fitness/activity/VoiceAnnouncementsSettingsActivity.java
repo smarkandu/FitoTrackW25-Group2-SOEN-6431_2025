@@ -51,11 +51,9 @@ public class VoiceAnnouncementsSettingsActivity extends FitoTrackSettingsActivit
     }
 
     private void showSpeechConfig() {
-        UnitUtils.setUnit(this); // Maybe the user changed unit system
+        UnitUtils.setUnit(this); // Ensure the correct unit system
 
-        final AlertDialog.Builder d = new AlertDialog.Builder(this);
         final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        d.setTitle(getString(R.string.pref_voice_announcements_summary));
         View v = getLayoutInflater().inflate(R.layout.dialog_spoken_updates_picker, null);
 
         NumberPicker npT = v.findViewById(R.id.spokenUpdatesTimePicker);
@@ -75,16 +73,12 @@ public class VoiceAnnouncementsSettingsActivity extends FitoTrackSettingsActivit
         npD.setValue(preferences.getInt(updateDistanceVariable, 0));
         npD.setWrapSelectorWheel(false);
 
-        d.setView(v);
-
-        d.setNegativeButton(R.string.cancel, null);
-        d.setPositiveButton(R.string.okay, (dialog, which) ->
-                preferences.edit()
-                        .putInt(updateTimeVariable, npT.getValue())
-                        .putInt(updateDistanceVariable, npD.getValue())
-                        .apply());
-
-        d.create().show();
+        showNumberPickerDialog(getString(R.string.pref_voice_announcements_summary), v, (dialog, which) -> {
+            preferences.edit()
+                    .putInt(updateTimeVariable, npT.getValue())
+                    .putInt(updateDistanceVariable, npD.getValue())
+                    .apply();
+        });
     }
 
 }
