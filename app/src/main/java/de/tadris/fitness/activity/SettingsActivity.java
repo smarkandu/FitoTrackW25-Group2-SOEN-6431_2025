@@ -212,30 +212,25 @@ public class SettingsActivity extends FitoTrackSettingsActivity {
     }
 
     private void showWeightPicker() {
-        UnitUtils.setUnit(this); // Maybe the user changed unit system
+        UnitUtils.setUnit(this); // Ensure the correct unit system
 
-        final AlertDialog.Builder d = new AlertDialog.Builder(this);
-        final SharedPreferences preferences= PreferenceManager.getDefaultSharedPreferences(this);
-        d.setTitle(getString(R.string.pref_weight));
-        View v= getLayoutInflater().inflate(R.layout.dialog_weight_picker, null);
+        final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        View v = getLayoutInflater().inflate(R.layout.dialog_weight_picker, null);
         NumberPicker np = v.findViewById(R.id.weightPicker);
+
         np.setMaxValue((int) UnitUtils.CHOSEN_SYSTEM.getWeightFromKilogram(150));
         np.setMinValue((int) UnitUtils.CHOSEN_SYSTEM.getWeightFromKilogram(20));
         np.setFormatter(value -> value + " " + UnitUtils.CHOSEN_SYSTEM.getWeightUnit());
+
         final String preferenceVariable = "weight";
-        np.setValue((int)Math.round(UnitUtils.CHOSEN_SYSTEM.getWeightFromKilogram(preferences.getInt(preferenceVariable, 80))));
+        np.setValue((int) Math.round(UnitUtils.CHOSEN_SYSTEM.getWeightFromKilogram(preferences.getInt(preferenceVariable, 80))));
         np.setWrapSelectorWheel(false);
 
-        d.setView(v);
-
-        d.setNegativeButton(R.string.cancel, null);
-        d.setPositiveButton(R.string.okay, (dialog, which) -> {
-            int unitValue= np.getValue();
-            int kilograms= (int)Math.round(UnitUtils.CHOSEN_SYSTEM.getKilogramFromUnit(unitValue));
+        showNumberPickerDialog(getString(R.string.pref_weight), v, (dialog, which) -> {
+            int unitValue = np.getValue();
+            int kilograms = (int) Math.round(UnitUtils.CHOSEN_SYSTEM.getKilogramFromUnit(unitValue));
             preferences.edit().putInt(preferenceVariable, kilograms).apply();
         });
-
-        d.create().show();
     }
 
     /**
