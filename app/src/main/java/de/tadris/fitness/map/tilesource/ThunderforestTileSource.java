@@ -22,9 +22,8 @@ package de.tadris.fitness.map.tilesource;
 import org.mapsforge.core.model.Tile;
 
 import java.net.MalformedURLException;
-import java.net.URL;
 
-public class ThunderforestTileSource extends FitoTrackTileSource{
+public class ThunderforestTileSource extends FitoTrackTileSource {
 
     private static final String API_KEY = "87b07337e42c405db6d8d39b1c0c179e";
 
@@ -39,7 +38,7 @@ public class ThunderforestTileSource extends FitoTrackTileSource{
     private final String name;
 
     private ThunderforestTileSource(String mapName, String name) {
-        super(new String[]{"tile.thunderforest.com"}, 443);
+        super(new String[]{"tile.thunderforest.com"}, 443, (byte) ZOOM_LEVEL_MIN, (byte) ZOOM_LEVEL_MAX, PARALLEL_REQUESTS_LIMIT);
         this.mapName = mapName;
         this.name = name;
     }
@@ -50,23 +49,12 @@ public class ThunderforestTileSource extends FitoTrackTileSource{
     }
 
     @Override
-    public URL getTileUrl(Tile tile) throws MalformedURLException {
-
-        return new URL(PROTOCOL, getHostName(), this.port, "/" + mapName + "/" + tile.zoomLevel + '/' + tile.tileX + '/' + tile.tileY + ".png?apikey=" + API_KEY);
-    }
-
-    @Override
-    public byte getZoomLevelMax() {
-        return ZOOM_LEVEL_MAX;
-    }
-
-    @Override
-    public byte getZoomLevelMin() {
-        return ZOOM_LEVEL_MIN;
-    }
-
-    @Override
     public String getName() {
         return name;
+    }
+
+    @Override
+    protected String buildTileUrlPath(Tile tile) {
+        return "/" + mapName + "/" + tile.zoomLevel + '/' + tile.tileX + '/' + tile.tileY + ".png?apikey=" + API_KEY;
     }
 }

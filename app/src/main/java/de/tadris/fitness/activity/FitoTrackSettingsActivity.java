@@ -19,6 +19,7 @@
 
 package de.tadris.fitness.activity;
 
+import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
@@ -130,6 +131,16 @@ public abstract class FitoTrackSettingsActivity extends PreferenceActivity {
             return true;
         }
         return super.onMenuItemSelected(featureId, item);
+    }
+
+    /**
+     * Set up the {@link android.app.ActionBar}, if the API is available.
+     */
+    protected void setupActionBar() {
+        ActionBar actionBar = getActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
     }
 
 }
