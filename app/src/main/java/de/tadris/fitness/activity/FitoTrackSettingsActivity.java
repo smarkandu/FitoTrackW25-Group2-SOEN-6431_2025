@@ -21,6 +21,7 @@ package de.tadris.fitness.activity;
 
 import android.app.ActionBar;
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -33,6 +34,7 @@ import android.preference.RingtonePreference;
 import android.text.TextUtils;
 import android.view.MenuItem;
 
+import android.view.View;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 
