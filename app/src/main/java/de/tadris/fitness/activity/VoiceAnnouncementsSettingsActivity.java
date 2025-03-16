@@ -51,7 +51,7 @@ public class VoiceAnnouncementsSettingsActivity extends FitoTrackSettingsActivit
     }
 
     private void showSpeechConfig() {
-        UnitUtils.setUnit(this); // Maybe the user changed unit system
+        UnitUtils.setUnit(this); 
 
         final AlertDialog.Builder d = new AlertDialog.Builder(this);
         final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
@@ -59,32 +59,25 @@ public class VoiceAnnouncementsSettingsActivity extends FitoTrackSettingsActivit
         View v = getLayoutInflater().inflate(R.layout.dialog_spoken_updates_picker, null);
 
         NumberPicker npT = v.findViewById(R.id.spokenUpdatesTimePicker);
-        npT.setMaxValue(60);
-        npT.setMinValue(0);
-        npT.setFormatter(value -> value == 0 ? "No speech" : value + " min");
+        String timeFormatterText = " min"; 
+        DialogUtils.setUpNumberPicker(npT, 0, 60, timeFormatterText);  
         final String updateTimeVariable = "spokenUpdateTimePeriod";
         npT.setValue(preferences.getInt(updateTimeVariable, 0));
-        npT.setWrapSelectorWheel(false);
 
-        final String distanceUnit = " " + UnitUtils.CHOSEN_SYSTEM.getLongDistanceUnit();
+        String distanceUnit = " " + UnitUtils.CHOSEN_SYSTEM.getLongDistanceUnit();
         NumberPicker npD = v.findViewById(R.id.spokenUpdatesDistancePicker);
-        npD.setMaxValue(10);
-        npD.setMinValue(0);
-        npD.setFormatter(value -> value == 0 ? "No speech" : value + distanceUnit);
+        DialogUtils.setUpNumberPicker(npD, 0, 10, distanceUnit);  
         final String updateDistanceVariable = "spokenUpdateDistancePeriod";
         npD.setValue(preferences.getInt(updateDistanceVariable, 0));
-        npD.setWrapSelectorWheel(false);
 
-        d.setView(v);
-
-        d.setNegativeButton(R.string.cancel, null);
-        d.setPositiveButton(R.string.okay, (dialog, which) ->
-                preferences.edit()
-                        .putInt(updateTimeVariable, npT.getValue())
-                        .putInt(updateDistanceVariable, npD.getValue())
-                        .apply());
+        DialogUtils.setUpDialog(d, v, getString(R.string.okay), (dialog, which) -> {
+            preferences.edit()
+                    .putInt(updateTimeVariable, npT.getValue())
+                    .putInt(updateDistanceVariable, npD.getValue())
+                    .apply();
+        });
 
         d.create().show();
-    }
+}
 
 }
