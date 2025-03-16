@@ -49,8 +49,6 @@ public class HumanitarianTileSource extends FitoTrackTileSource {
         return PARALLEL_REQUESTS_LIMIT;
     }
 
-    // Remove the duplicate getTileUrl() method.
-    // Instead, implement buildTileUrlPath() so that the parent's getTileUrl(Tile) method works.
     @Override
     protected String buildTileUrlPath(Tile tile) {
         return "/hot/" + tile.zoomLevel + '/' + tile.tileX + '/' + tile.tileY + ".png";

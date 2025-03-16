@@ -41,7 +41,6 @@ public class MapnikTileSource extends FitoTrackTileSource {
         return NAME;
     }
 
-    // Instead of overriding getTileUrl, we implement buildTileUrlPath.
     @Override
     protected String buildTileUrlPath(Tile tile) {
         return "/" + tile.zoomLevel + '/' + tile.tileX + '/' + tile.tileY + ".png";
