@@ -23,6 +23,9 @@ import org.mapsforge.map.layer.download.tilesource.AbstractTileSource;
 
 public abstract class FitoTrackTileSource extends AbstractTileSource {
 
+    protected static final String PROTOCOL = "https";
+    protected static final int PARALLEL_REQUESTS_LIMIT = 8;
+
     FitoTrackTileSource(String[] hostNames, int port) {
         super(hostNames, port);
         defaultTimeToLive = 8279000;
@@ -34,4 +37,19 @@ public abstract class FitoTrackTileSource extends AbstractTileSource {
     }
 
     public abstract String getName();
+
+
+    public abstract String getTilePath(Tile tile);
+
+    public URL getTileUrl(Tile tile) throws MalformedURLException {
+        return new URL(PROTOCOL, getHostName(), this.port, getTilePath(tile));
+    }
+
+    public byte getZoomLevelMax() {
+        return 18;  // Default value, can be overridden
+    }
+
+    public byte getZoomLevelMin() {
+        return 0;   // Default value
+    }
 }
