@@ -39,7 +39,7 @@ public class ThunderforestTileSource extends FitoTrackTileSource{
     private final String name;
 
     private ThunderforestTileSource(String mapName, String name) {
-        super(new String[]{"tile.thunderforest.com"}, 443);
+        super(new String[]{"tile.thunderforest.com"}, 443, (byte) ZOOM_LEVEL_MIN, (byte) ZOOM_LEVEL_MAX);
         this.mapName = mapName;
         this.name = name;
     }
@@ -54,17 +54,6 @@ public class ThunderforestTileSource extends FitoTrackTileSource{
 
         return new URL(PROTOCOL, getHostName(), this.port, "/" + mapName + "/" + tile.zoomLevel + '/' + tile.tileX + '/' + tile.tileY + ".png?apikey=" + API_KEY);
     }
-
-    @Override
-    public byte getZoomLevelMax() {
-        return ZOOM_LEVEL_MAX;
-    }
-
-    @Override
-    public byte getZoomLevelMin() {
-        return ZOOM_LEVEL_MIN;
-    }
-
     @Override
     public String getName() {
         return name;

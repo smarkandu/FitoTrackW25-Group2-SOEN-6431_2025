@@ -23,9 +23,14 @@ import org.mapsforge.map.layer.download.tilesource.AbstractTileSource;
 
 public abstract class FitoTrackTileSource extends AbstractTileSource {
 
-    FitoTrackTileSource(String[] hostNames, int port) {
+    protected byte zoomLevelMax;
+    protected byte zoomLevelMin;
+
+    FitoTrackTileSource(String[] hostNames, int port, byte zoomLevelMin, byte zoomLevelMax) {
         super(hostNames, port);
         defaultTimeToLive = 8279000;
+        this.zoomLevelMin = zoomLevelMin;
+        this.zoomLevelMax = zoomLevelMax;
     }
 
     @Override
@@ -34,4 +39,15 @@ public abstract class FitoTrackTileSource extends AbstractTileSource {
     }
 
     public abstract String getName();
+
+    @Override
+    public byte getZoomLevelMax() {
+        return zoomLevelMax;
+    }
+
+    @Override
+    public byte getZoomLevelMin() {
+        return zoomLevelMin;
+    }
+
 }
