@@ -6,14 +6,14 @@ import android.app.AlertDialog;
 
 import de.tadris.fitness.R;
 
-public class DialogUtils {
+public class UtilsForNumber {
 
     public static void setUpDialog(AlertDialog.Builder dialogBuilder, View v, String positiveButtonText, DialogOnClickListener onPositiveClick) {
         dialogBuilder.setView(v);
         dialogBuilder.setNegativeButton(R.string.cancel, null);
         dialogBuilder.setPositiveButton(positiveButtonText, (dialog, which) -> {
             if (onPositiveClick != null) {
-                onPositiveClick.onClick(dialog, which);
+                onPositiveClick.onClick((AlertDialog) dialog, which);
             }
         });
     }

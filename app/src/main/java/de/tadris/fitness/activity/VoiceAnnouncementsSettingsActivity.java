@@ -1,22 +1,3 @@
-/*
- * Copyright (c) 2020 Jannis Scheibe <jannis@tadris.de>
- *
- * This file is part of FitoTrack
- *
- * FitoTrack is free software: you can redistribute it and/or modify
- *     it under the terms of the GNU General Public License as published by
- *     the Free Software Foundation, either version 3 of the License, or
- *     (at your option) any later version.
- *
- *     FitoTrack is distributed in the hope that it will be useful,
- *     but WITHOUT ANY WARRANTY; without even the implied warranty of
- *     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *     GNU General Public License for more details.
- *
- *     You should have received a copy of the GNU General Public License
- *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
-
 package de.tadris.fitness.activity;
 
 import android.app.ActionBar;
@@ -28,6 +9,7 @@ import android.view.View;
 import android.widget.NumberPicker;
 
 import de.tadris.fitness.R;
+import de.tadris.fitness.util.UtilsForNumber;
 import de.tadris.fitness.util.unit.UnitUtils;
 
 public class VoiceAnnouncementsSettingsActivity extends FitoTrackSettingsActivity {
@@ -59,18 +41,18 @@ public class VoiceAnnouncementsSettingsActivity extends FitoTrackSettingsActivit
         View v = getLayoutInflater().inflate(R.layout.dialog_spoken_updates_picker, null);
 
         NumberPicker npT = v.findViewById(R.id.spokenUpdatesTimePicker);
-        String timeFormatterText = " min"; 
-        DialogUtils.setUpNumberPicker(npT, 0, 60, timeFormatterText);  
+        String timeFormatterText = " min";
+        UtilsForNumber.setUpNumberPicker(npT, 0, 60, timeFormatterText);
         final String updateTimeVariable = "spokenUpdateTimePeriod";
         npT.setValue(preferences.getInt(updateTimeVariable, 0));
 
         String distanceUnit = " " + UnitUtils.CHOSEN_SYSTEM.getLongDistanceUnit();
         NumberPicker npD = v.findViewById(R.id.spokenUpdatesDistancePicker);
-        DialogUtils.setUpNumberPicker(npD, 0, 10, distanceUnit);  
+        UtilsForNumber.setUpNumberPicker(npD, 0, 10, distanceUnit);
         final String updateDistanceVariable = "spokenUpdateDistancePeriod";
         npD.setValue(preferences.getInt(updateDistanceVariable, 0));
 
-        DialogUtils.setUpDialog(d, v, getString(R.string.okay), (dialog, which) -> {
+        UtilsForNumber.setUpDialog(d, v, getString(R.string.okay), (dialog, which) -> {
             preferences.edit()
                     .putInt(updateTimeVariable, npT.getValue())
                     .putInt(updateDistanceVariable, npD.getValue())
