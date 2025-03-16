@@ -132,4 +132,14 @@ public abstract class FitoTrackSettingsActivity extends PreferenceActivity {
         return super.onMenuItemSelected(featureId, item);
     }
 
+    /**
+     * Set up the {@link android.app.ActionBar}, if the API is available.
+     */
+    protected void setupActionBar() {
+        ActionBar actionBar = getActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+    }
+
 }

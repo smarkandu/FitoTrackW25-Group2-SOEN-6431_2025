@@ -54,7 +54,7 @@ public class SettingsActivity extends FitoTrackSettingsActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setupActionBar();
+        setupActionBar(); 
 
         setTitle(R.string.settings);
 
@@ -238,17 +238,6 @@ public class SettingsActivity extends FitoTrackSettingsActivity {
         });
 
         d.create().show();
-    }
-
-    /**
-     * Set up the {@link android.app.ActionBar}, if the API is available.
-     */
-    private void setupActionBar() {
-        ActionBar actionBar = getActionBar();
-        if (actionBar != null) {
-            // Show the Up button in the action bar.
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
     }
 
 }
