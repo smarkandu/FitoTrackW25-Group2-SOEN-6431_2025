@@ -35,7 +35,7 @@ public class HumanitarianTileSource extends FitoTrackTileSource {
     private static final String NAME = "Humanitarian";
 
     private HumanitarianTileSource(String[] hostNames, int port) {
-        super(hostNames, port, (byte) ZOOM_LEVEL_MIN, (byte) ZOOM_LEVEL_MAX);
+        super(hostNames, port);
     }
 
     @Override
@@ -52,6 +52,16 @@ public class HumanitarianTileSource extends FitoTrackTileSource {
     public URL getTileUrl(Tile tile) throws MalformedURLException {
 
         return new URL(PROTOCOL, getHostName(), this.port, "/hot/" + tile.zoomLevel + '/' + tile.tileX + '/' + tile.tileY + ".png");
+    }
+
+    @Override
+    public byte getZoomLevelMax() {
+        return ZOOM_LEVEL_MAX;
+    }
+
+    @Override
+    public byte getZoomLevelMin() {
+        return ZOOM_LEVEL_MIN;
     }
 
 }
