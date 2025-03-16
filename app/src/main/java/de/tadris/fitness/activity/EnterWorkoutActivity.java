@@ -17,6 +17,7 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+
 package de.tadris.fitness.activity;
 
 import android.content.Intent;
@@ -50,7 +51,9 @@ public class EnterWorkoutActivity extends InformationActivity implements SelectW
     TextView dateTextView;
     TextView timeTextView;
     TextView durationTextView;
-    EditText distanceEditText, commentEditText;
+  
+    EditText distanceEditText;
+    EditText commentEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,18 +75,18 @@ public class EnterWorkoutActivity extends InformationActivity implements SelectW
         distanceEditText.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
         distanceEditText.setOnEditorActionListener((v, actionId, event) -> {
             // If the User clicks on the finish button on the keyboard, continue by showing the date selection
-            if (actionId == EditorInfo.IME_ACTION_SEARCH ||
+            if ((actionId == EditorInfo.IME_ACTION_SEARCH ||
                     actionId == EditorInfo.IME_ACTION_DONE ||
-                    event != null &&
-                            event.getAction() == KeyEvent.ACTION_DOWN &&
-                            event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
-                if (event == null || !event.isShiftPressed()) {
-                    showDateSelection();
-                    return true;
-                }
+                    (event != null && event.getAction() == KeyEvent.ACTION_DOWN && event.getKeyCode() == KeyEvent.KEYCODE_ENTER))
+                    && (event == null || !event.isShiftPressed())) {
+                  showDateSelection();
+                  return true;
             }
             return false;
         });
+
+
+
         addKeyValueLine(getString(R.string.workoutDistance), distanceEditText, UnitUtils.CHOSEN_SYSTEM.getLongDistanceUnit());
 
 
@@ -125,7 +128,7 @@ public class EnterWorkoutActivity extends InformationActivity implements SelectW
             Toast.makeText(this, R.string.errorEnterValidDuration, Toast.LENGTH_LONG).show();
             return;
         }
-        ShowWorkoutActivity.selectedWorkout = workoutBuilder.insertWorkout(this);
+        WorkoutActivity.setSelectedWorkout(workoutBuilder.insertWorkout(this));
         startActivity(new Intent(this, ShowWorkoutActivity.class));
         finish();
     }
@@ -207,8 +210,9 @@ public class EnterWorkoutActivity extends InformationActivity implements SelectW
             case android.R.id.home:
                 finish();
                 return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
-        return super.onOptionsItemSelected(item);
     }
 
     private void setupActionBar() {

@@ -101,7 +101,6 @@ public class WorkoutRecorder implements LocationListener.LocationChangeListener 
                     checkSignalState();
                     synchronized (samples){
                         if(samples.size() > 2){
-                            WorkoutSample lastSample= samples.get(samples.size()-1);
                             long timeDiff= System.currentTimeMillis() - lastSampleTime;
                             if(timeDiff > AUTO_STOP_TIMEOUT){
                                 if(isActive()){
@@ -230,7 +229,7 @@ public class WorkoutRecorder implements LocationListener.LocationChangeListener 
         sample.speed= location.getSpeed();
         sample.relativeTime= location.getTime() - workout.start - pauseTime;
         sample.absoluteTime= location.getTime();
-        if(Instance.getInstance(context).pressureAvailable){
+        if(Instance.getInstance(context).isPressureAvailable()){
             sample.tmpPressure= Instance.getInstance(context).lastPressure;
         }else{
             sample.tmpPressure= -1;

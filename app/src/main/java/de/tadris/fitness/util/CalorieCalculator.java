@@ -24,6 +24,12 @@ import de.tadris.fitness.data.WorkoutType;
 
 public class CalorieCalculator {
 
+    // Private constructor to prevent instantiation
+    private CalorieCalculator() { //added
+        throw new UnsupportedOperationException("This is a utility class and cannot be instantiated"); //added
+    }
+
+
     /**
      *
      * workoutType, duration, ascent and avgSpeed of workout have to be set
