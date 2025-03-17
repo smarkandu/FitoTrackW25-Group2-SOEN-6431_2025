@@ -25,6 +25,8 @@ import android.os.Handler;
 import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import MenuUtils.java;
+
 
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Description;
@@ -323,7 +325,7 @@ public abstract class WorkoutActivity extends InformationActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (MenuUtils.handleHomeButton)(this, item)) {
+        if (MenuUtils.handleHomeButton(this, item)) {
             return true;
         }
         return super.onOptionsItemSelected(item);
