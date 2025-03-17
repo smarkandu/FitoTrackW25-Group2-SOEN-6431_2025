@@ -145,9 +145,7 @@ public abstract class FitoTrackSettingsActivity extends PreferenceActivity {
 
     @Override
     public boolean onMenuItemSelected(int featureId, MenuItem item) {
-        int id = item.getItemId();
-        if (id == android.R.id.home) {
-            finish();
+        if (MenuUtils.handleHomeButton(this, item)) {
             return true;
         }
         return super.onMenuItemSelected(featureId, item);

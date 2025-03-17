@@ -323,9 +323,7 @@ public abstract class WorkoutActivity extends InformationActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == android.R.id.home) {
-            finish();
+        if (MenuUtils.handleHomeButton)(this, item)) {
             return true;
         }
         return super.onOptionsItemSelected(item);
