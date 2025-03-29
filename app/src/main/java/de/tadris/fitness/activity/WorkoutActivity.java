@@ -26,6 +26,8 @@ import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+
+
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.data.Entry;
@@ -323,9 +325,7 @@ public abstract class WorkoutActivity extends InformationActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == android.R.id.home) {
-            finish();
+        if (MenuUtils.handleHomeButton(this, item)) {
             return true;
         }
         return super.onOptionsItemSelected(item);
