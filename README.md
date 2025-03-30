@@ -65,3 +65,10 @@ Copyright (C) 2019 Jannis Scheibe <jannis@tadris.de>
 
     Sie sollten eine Kopie der GNU General Public License zusammen mit diesem
     Programm erhalten haben. Wenn nicht, siehe <https://www.gnu.org/licenses/>.
+
+
+
+
+NOTE: Please create a config file to have secret keys for the following:
+1. CONSUMER_KEY
+2. CONSUMER_SECRET
