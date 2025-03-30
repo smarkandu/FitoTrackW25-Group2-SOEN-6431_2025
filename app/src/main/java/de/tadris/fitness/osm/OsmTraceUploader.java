@@ -30,8 +30,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import de.tadris.fitness.R;
 import de.tadris.fitness.data.Workout;
@@ -57,13 +55,6 @@ public class OsmTraceUploader {
     private final boolean cut;
     private final ProgressDialogController dialogController;
     private final String description;
-
-    /**
-     * Logger instance for logging messages related to the {@code OsmTraceUploader} class.
-     * This logger is used to capture and report important runtime events, warnings,
-     * and errors that occur during the execution of the class.
-     */
-    private static final Logger logger = Logger.getLogger(OsmTraceUploader.class.getName());
 
     public OsmTraceUploader(Activity activity, Handler handler, Workout workout, List<WorkoutSample> samples, GpsTraceDetails.Visibility visibility, OAuthConsumer consumer, boolean cut, String description) {
         this.activity = activity;
@@ -100,7 +91,7 @@ public class OsmTraceUploader {
             try {
                 executeTask();
             }catch (Exception e){
-                logger.log(Level.SEVERE, "Upload failed due to an exception", e);
+                e.printStackTrace();
                 handler.post(() -> {
                     @StringRes int textRes = R.string.uploadFailed;
 
