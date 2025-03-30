@@ -16,3 +16,4 @@
 # gradle
 local.properties
 
+app/src/main/res/config.properties
