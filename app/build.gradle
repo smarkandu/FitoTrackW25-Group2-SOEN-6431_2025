@@ -80,7 +80,7 @@ dependencies {
 
     // XML
     implementation 'stax:stax-api:1.0.1'
-    implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.9.8'
+    implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.11.0'
 
     // File Utils
     implementation 'commons-io:commons-io:2.6'
