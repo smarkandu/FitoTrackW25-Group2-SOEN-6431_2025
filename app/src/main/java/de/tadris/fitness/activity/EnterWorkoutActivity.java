@@ -1,23 +1,3 @@
-/*
- * Copyright (c) 2020 Jannis Scheibe <jannis@tadris.de>
- *
- * This file is part of FitoTrack
- *
- * FitoTrack is free software: you can redistribute it and/or modify
- *     it under the terms of the GNU General Public License as published by
- *     the Free Software Foundation, either version 3 of the License, or
- *     (at your option) any later version.
- *
- *     FitoTrack is distributed in the hope that it will be useful,
- *     but WITHOUT ANY WARRANTY; without even the implied warranty of
- *     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *     GNU General Public License for more details.
- *
- *     You should have received a copy of the GNU General Public License
- *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
-
-
 package de.tadris.fitness.activity;
 
 import android.content.Intent;
@@ -32,6 +12,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
@@ -51,7 +32,7 @@ public class EnterWorkoutActivity extends InformationActivity implements SelectW
     TextView dateTextView;
     TextView timeTextView;
     TextView durationTextView;
-  
+
     EditText distanceEditText;
     EditText commentEditText;
 
@@ -74,21 +55,17 @@ public class EnterWorkoutActivity extends InformationActivity implements SelectW
         distanceEditText.setSingleLine(true);
         distanceEditText.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
         distanceEditText.setOnEditorActionListener((v, actionId, event) -> {
-            // If the User clicks on the finish button on the keyboard, continue by showing the date selection
             if ((actionId == EditorInfo.IME_ACTION_SEARCH ||
                     actionId == EditorInfo.IME_ACTION_DONE ||
                     (event != null && event.getAction() == KeyEvent.ACTION_DOWN && event.getKeyCode() == KeyEvent.KEYCODE_ENTER))
                     && (event == null || !event.isShiftPressed())) {
-                  showDateSelection();
-                  return true;
+                showDateSelection();
+                return true;
             }
             return false;
         });
 
-
-
         addKeyValueLine(getString(R.string.workoutDistance), distanceEditText, UnitUtils.CHOSEN_SYSTEM.getLongDistanceUnit());
-
 
         KeyValueLine dateLine = addKeyValueLine(getString(R.string.workoutDate));
         dateLine.lineRoot.setOnClickListener(v -> showDateSelection());
@@ -135,8 +112,8 @@ public class EnterWorkoutActivity extends InformationActivity implements SelectW
 
     private void updateTextViews() {
         typeTextView.setText(getString(workoutBuilder.getWorkoutType().title));
-        dateTextView.setText(SimpleDateFormat.getDateInstance().format(workoutBuilder.getStart().getTime()));
-        timeTextView.setText(SimpleDateFormat.getTimeInstance().format(workoutBuilder.getStart().getTime()));
+        dateTextView.setText(DateFormat.getDateInstance().format(workoutBuilder.getStart().getTime()));
+        timeTextView.setText(DateFormat.getTimeInstance().format(workoutBuilder.getStart().getTime()));
         durationTextView.setText(UnitUtils.getHourMinuteSecondTime(workoutBuilder.getDuration()));
     }
 
@@ -195,7 +172,6 @@ public class EnterWorkoutActivity extends InformationActivity implements SelectW
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.enter_workout_menu, menu);
         return true;
     }
