@@ -30,8 +30,6 @@ public class ThunderforestTileSource extends FitoTrackTileSource{
 
     public static final ThunderforestTileSource OUTDOORS = new ThunderforestTileSource("outdoors", "Outdoor");
     public static final ThunderforestTileSource CYCLE_MAP = new ThunderforestTileSource("cycle", "Cycle Map");
-    private static final int PARALLEL_REQUESTS_LIMIT = 8;
-    private static final String PROTOCOL = "https";
     private static final int ZOOM_LEVEL_MAX = 19;
     private static final int ZOOM_LEVEL_MIN = 0;
 
@@ -45,14 +43,9 @@ public class ThunderforestTileSource extends FitoTrackTileSource{
     }
 
     @Override
-    public int getParallelRequestsLimit() {
-        return PARALLEL_REQUESTS_LIMIT;
-    }
-
-    @Override
     public URL getTileUrl(Tile tile) throws MalformedURLException {
 
-        return new URL(PROTOCOL, getHostName(), this.port, "/" + mapName + "/" + tile.zoomLevel + '/' + tile.tileX + '/' + tile.tileY + ".png?apikey=" + API_KEY);
+        return new URL(TileConstantManager.getInstance().getHTTPS_PROTOCOL(), getHostName(), this.port, "/" + mapName + "/" + tile.zoomLevel + '/' + tile.tileX + '/' + tile.tileY + ".png?apikey=" + API_KEY);
     }
 
     @Override

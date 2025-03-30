@@ -21,6 +21,7 @@ package de.tadris.fitness.activity;
 
 import android.app.ActionBar;
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -33,6 +34,7 @@ import android.preference.RingtonePreference;
 import android.text.TextUtils;
 import android.view.MenuItem;
 
+import android.view.View;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 
@@ -42,6 +44,15 @@ import de.tadris.fitness.util.DialogUtils;
 import de.tadris.fitness.util.unit.UnitUtils;
 
 public abstract class FitoTrackSettingsActivity extends PreferenceActivity {
+
+    public void showNumberPickerDialog(String title, View view, DialogInterface.OnClickListener onConfirm) {
+        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+        dialog.setTitle(title);
+        dialog.setView(view);
+        dialog.setNegativeButton(R.string.cancel, null);
+        dialog.setPositiveButton(R.string.okay, onConfirm);
+        dialog.create().show();
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -134,9 +145,7 @@ public abstract class FitoTrackSettingsActivity extends PreferenceActivity {
 
     @Override
     public boolean onMenuItemSelected(int featureId, MenuItem item) {
-        int id = item.getItemId();
-        if (id == android.R.id.home) {
-            finish();
+        if (MenuUtils.handleHomeButton(this, item)) {
             return true;
         }
         return super.onMenuItemSelected(featureId, item);

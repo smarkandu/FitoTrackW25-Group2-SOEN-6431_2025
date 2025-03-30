@@ -27,12 +27,8 @@ import java.net.URL;
 public class HumanitarianTileSource extends FitoTrackTileSource {
 
     public static final HumanitarianTileSource INSTANCE = new HumanitarianTileSource(new String[]{"tile-a.openstreetmap.fr", "tile-b.openstreetmap.fr", "tile-c.openstreetmap.fr"}, 443);
-
-    private static final int PARALLEL_REQUESTS_LIMIT = 8;
-    private static final String PROTOCOL = "https";
     private static final int ZOOM_LEVEL_MAX = 18;
     private static final int ZOOM_LEVEL_MIN = 0;
-    private static final String NAME = "Humanitarian";
 
     private HumanitarianTileSource(String[] hostNames, int port) {
         super(hostNames, port);
@@ -40,18 +36,7 @@ public class HumanitarianTileSource extends FitoTrackTileSource {
 
     @Override
     public String getName() {
-        return NAME;
-    }
-
-    @Override
-    public int getParallelRequestsLimit() {
-        return PARALLEL_REQUESTS_LIMIT;
-    }
-
-    @Override
-    public URL getTileUrl(Tile tile) throws MalformedURLException {
-
-        return new URL(PROTOCOL, getHostName(), this.port, "/hot/" + tile.zoomLevel + '/' + tile.tileX + '/' + tile.tileY + ".png");
+        return TileConstantManager.getInstance().getHUMANITARIAN_NAME();
     }
 
     @Override
