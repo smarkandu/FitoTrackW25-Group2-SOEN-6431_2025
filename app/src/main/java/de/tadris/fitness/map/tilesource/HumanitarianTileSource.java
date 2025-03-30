@@ -26,31 +26,27 @@ import java.net.URL;
 
 public class HumanitarianTileSource extends FitoTrackTileSource {
 
-    public static final HumanitarianTileSource INSTANCE = new HumanitarianTileSource(new String[]{
-            "tile-a.openstreetmap.fr", "tile-b.openstreetmap.fr", "tile-c.openstreetmap.fr"}, 443);
-
-    private static final int PARALLEL_REQUESTS_LIMIT = 8;
-    private static final String PROTOCOL = "https";
+    public static final HumanitarianTileSource INSTANCE = new HumanitarianTileSource(new String[]{"tile-a.openstreetmap.fr", "tile-b.openstreetmap.fr", "tile-c.openstreetmap.fr"}, 443);
     private static final int ZOOM_LEVEL_MAX = 18;
     private static final int ZOOM_LEVEL_MIN = 0;
-    private static final String NAME = "Humanitarian";
 
     private HumanitarianTileSource(String[] hostNames, int port) {
-        super(hostNames, port, (byte) ZOOM_LEVEL_MIN, (byte) ZOOM_LEVEL_MAX, PARALLEL_REQUESTS_LIMIT);
+        super(hostNames, port);
     }
 
     @Override
     public String getName() {
-        return NAME;
+        return TileConstantManager.getInstance().getHUMANITARIAN_NAME();
     }
 
     @Override
-    public int getParallelRequestsLimit() {
-        return PARALLEL_REQUESTS_LIMIT;
+    public byte getZoomLevelMax() {
+        return ZOOM_LEVEL_MAX;
     }
 
     @Override
-    protected String buildTileUrlPath(Tile tile) {
-        return "/hot/" + tile.zoomLevel + '/' + tile.tileX + '/' + tile.tileY + ".png";
+    public byte getZoomLevelMin() {
+        return ZOOM_LEVEL_MIN;
     }
+
 }

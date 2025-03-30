@@ -32,6 +32,7 @@ import androidx.core.app.ActivityCompat;
 
 import de.tadris.fitness.Instance;
 import de.tadris.fitness.R;
+import de.tadris.fitness.util.DialogUtils;
 
 public abstract class FitoTrackActivity extends Activity {
 
@@ -47,13 +48,10 @@ public abstract class FitoTrackActivity extends Activity {
         return value.data;
     }
 
-    void showErrorDialog(Exception e, @StringRes int title, @StringRes int message) {
-        new AlertDialog.Builder(this)
-                .setTitle(title)
-                .setMessage(getString(message) + "\n\n" + e.getMessage())
-                .setPositiveButton(R.string.okay, null)
-                .create().show();
+    protected void showErrorDialog(Exception e, @StringRes int title, @StringRes int message) {
+        DialogUtils.showErrorDialog(this, e, title, message);
     }
+    
 
     protected void requestStoragePermissions() {
         if (!hasStoragePermission()) {

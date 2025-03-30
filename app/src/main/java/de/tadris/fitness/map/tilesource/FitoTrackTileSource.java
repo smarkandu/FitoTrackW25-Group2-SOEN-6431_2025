@@ -26,18 +26,11 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 public abstract class FitoTrackTileSource extends AbstractTileSource {
+    private static final int PARALLEL_REQUESTS_LIMIT = 8;
 
-    protected byte zoomLevelMax;
-    protected byte zoomLevelMin;
-
-    protected int PARALLEL_REQUESTS_LIMIT;
-
-    FitoTrackTileSource(String[] hostNames, int port, byte zoomLevelMin, byte zoomLevelMax, int parallelRequestCount) {
+    FitoTrackTileSource(String[] hostNames, int port) {
         super(hostNames, port);
         defaultTimeToLive = 8279000;
-        this.zoomLevelMin = zoomLevelMin;
-        this.zoomLevelMax = zoomLevelMax;
-        this.PARALLEL_REQUESTS_LIMIT = parallelRequestCount ;
     }
 
     @Override
@@ -48,39 +41,13 @@ public abstract class FitoTrackTileSource extends AbstractTileSource {
     public abstract String getName();
 
     @Override
-    public byte getZoomLevelMax() {
-        return zoomLevelMax;
-    }
-
-    @Override
-    public byte getZoomLevelMin() {
-        return zoomLevelMin;
-    }
-
-    @Override
     public int getParallelRequestsLimit() {
         return PARALLEL_REQUESTS_LIMIT;
     }
 
-    // Template method for constructing the tile URL.
-    // This method uses the protocol, host name, and port to build the complete URL.
     @Override
     public URL getTileUrl(Tile tile) throws MalformedURLException {
-        return new URL(getProtocol(), getHostName(), this.port, buildTileUrlPath(tile));
-    }
 
-    /**
-     * Returns the protocol for tile requests.
-     * Default implementation returns "https".
-     */
-    protected String getProtocol() {
-        return "https";
+        return new URL(TileConstantManager.getInstance().getHTTPS_PROTOCOL(), getHostName(), this.port, "/hot/" + tile.zoomLevel + '/' + tile.tileX + '/' + tile.tileY + ".png");
     }
-
-    /**
-     * Constructs and returns the URL path for the tile.
-     * Subclasses must implement this method to provide their specific URL path,
-     * which may include extra segments or query parameters.
-     */
-    protected abstract String buildTileUrlPath(Tile tile);
 }

@@ -22,6 +22,7 @@ package de.tadris.fitness.map.tilesource;
 import org.mapsforge.core.model.Tile;
 
 import java.net.MalformedURLException;
+import java.net.URL;
 
 public class MapnikTileSource extends FitoTrackTileSource {
 
@@ -29,20 +30,23 @@ public class MapnikTileSource extends FitoTrackTileSource {
             "a.tile.openstreetmap.org", "b.tile.openstreetmap.org", "c.tile.openstreetmap.org"}, 443);
     private static final int ZOOM_LEVEL_MAX = 19;
     private static final int ZOOM_LEVEL_MIN = 0;
-    private static final String NAME = "OSM Mapnik";
-    private static final String PROTOCOL = "https";
 
     private MapnikTileSource(String[] hostNames, int port) {
-        super(hostNames, port, (byte) ZOOM_LEVEL_MIN, (byte) ZOOM_LEVEL_MAX, 8);
+        super(hostNames, port);
     }
 
     @Override
     public String getName() {
-        return NAME;
+        return TileConstantManager.getInstance().getOSM_MAPNIK_NAME();
     }
 
     @Override
-    protected String buildTileUrlPath(Tile tile) {
-        return "/" + tile.zoomLevel + '/' + tile.tileX + '/' + tile.tileY + ".png";
+    public byte getZoomLevelMax() {
+        return ZOOM_LEVEL_MAX;
+    }
+
+    @Override
+    public byte getZoomLevelMin() {
+        return ZOOM_LEVEL_MIN;
     }
 }
