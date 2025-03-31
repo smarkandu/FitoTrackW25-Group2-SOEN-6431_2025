@@ -27,14 +27,14 @@ import oauth.signpost.OAuthProvider;
 import oauth.signpost.basic.DefaultOAuthConsumer;
 import oauth.signpost.basic.DefaultOAuthProvider;
 
-public class OAuthUrlProvider {
+class OAuthUrlProvider {
     private static final Properties properties = new Properties();
 
     // Static initializer to load properties
     static {
         try (InputStream input = OAuthUrlProvider.class.getClassLoader().getResourceAsStream("oauth.properties")) {
             if (input == null) {
-                throw new RuntimeException("oauth.properties file not found");
+                throw new IllegalStateException("oauth.properties file not found");
             }
             properties.load(input);
         } catch (IOException e) {
