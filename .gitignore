@@ -16,3 +16,4 @@
 # gradle
 local.properties
 
+**/oauth.properties
