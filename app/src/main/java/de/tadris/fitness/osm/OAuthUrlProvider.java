@@ -19,43 +19,48 @@
 
 package de.tadris.fitness.osm;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
 import oauth.signpost.OAuthConsumer;
 import oauth.signpost.OAuthProvider;
 import oauth.signpost.basic.DefaultOAuthConsumer;
 import oauth.signpost.basic.DefaultOAuthProvider;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Properties;
-
 class OAuthUrlProvider {
+    private static final Properties properties = new Properties();
 
-    private static final String CONSUMER_KEY = loadConfig("OSM_CONSUMER_KEY");
-    private static final String CONSUMER_SECRET = loadConfig("OSM_CONSUMER_SECRET");
-
-    private static String loadConfig(String key) {
-        Properties properties = new Properties();
-        try (InputStream input = OAuthUrlProvider.class.getClassLoader().getResourceAsStream("config.properties")) {
+    // Static initializer to load properties
+    static {
+        try (InputStream input = OAuthUrlProvider.class.getClassLoader().getResourceAsStream("oauth.properties")) {
             if (input == null) {
-                throw new IllegalStateException("Missing config.properties file. Please add it under app/src/main/resources.");
+                throw new IllegalStateException("oauth.properties file not found");
             }
             properties.load(input);
-            return properties.getProperty(key);
         } catch (IOException e) {
-            throw new RuntimeException("Error loading config file", e);
+            throw new RuntimeException("Error loading OAuth properties", e);
         }
     }
 
-    static OAuthConsumer getDefaultConsumer() {
+    // Retrieve credentials from properties
+    private static final String CONSUMER_KEY = properties.getProperty("osm.oauth.consumer.key");
+    private static final String CONSUMER_SECRET = properties.getProperty("osm.oauth.consumer.secret");
+
+    // OAuth URLs remain the same
+    private static final String URL_TOKEN_REQUEST = "https://www.openstreetmap.org/oauth/request_token";
+    private static final String URL_TOKEN_ACCESS = "https://www.openstreetmap.org/oauth/access_token";
+    private static final String URL_AUTHORIZE = "https://www.openstreetmap.org/oauth/authorize";
+
+    // Method to get OAuth Consumer
+    public static OAuthConsumer getDefaultConsumer() {
+        if (CONSUMER_KEY == null || CONSUMER_SECRET == null) {
+            throw new IllegalStateException("OAuth credentials are not properly configured");
+        }
         return new DefaultOAuthConsumer(CONSUMER_KEY, CONSUMER_SECRET);
     }
 
-    static OAuthProvider getDefaultProvider() {
+    // Method to get OAuth Provider
+    public static OAuthProvider getDefaultProvider() {
         return new DefaultOAuthProvider(URL_TOKEN_REQUEST, URL_TOKEN_ACCESS, URL_AUTHORIZE);
     }
-
-    static private final String URL_TOKEN_REQUEST = "https://www.openstreetmap.org/oauth/request_token";
-    static private final String URL_TOKEN_ACCESS = "https://www.openstreetmap.org/oauth/access_token";
-    static private final String URL_AUTHORIZE = "https://www.openstreetmap.org/oauth/authorize";
 }
-

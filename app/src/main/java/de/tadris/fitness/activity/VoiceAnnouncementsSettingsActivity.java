@@ -60,6 +60,7 @@ public class VoiceAnnouncementsSettingsActivity extends FitoTrackSettingsActivit
         });
 
         d.create().show();
+
 }
 
 }

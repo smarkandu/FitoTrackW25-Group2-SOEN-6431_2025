@@ -18,6 +18,7 @@
  */
 
 package de.tadris.fitness.activity;
+
 import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
