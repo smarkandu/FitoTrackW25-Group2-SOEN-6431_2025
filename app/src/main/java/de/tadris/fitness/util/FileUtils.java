@@ -73,8 +73,7 @@ public class FileUtils {
         try {
             Log.d(LOG_TAG_EXPORT, new BufferedInputStream(activity.getContentResolver().openInputStream(uri)).toString());
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            Log.e("FileUtils", "Failed to save file", e);
         }
     }
-
 }
