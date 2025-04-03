@@ -51,6 +51,8 @@ import org.mapsforge.map.layer.overlay.Polyline;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import de.tadris.fitness.Instance;
 import de.tadris.fitness.R;
@@ -183,7 +185,8 @@ public class RecordWorkoutActivity extends FitoTrackActivity implements Location
             }catch (InterruptedException e){
                 // Restore the interrupt status to ensure the caller is aware of the interruption.
                 Thread.currentThread().interrupt();
-                e.printStackTrace();
+                Logger.getLogger(RecordWorkoutActivity.class.getName())
+                        .log(Level.SEVERE, "Failed to start updater due to an exception: ", e);
             }
         }).start();
     }
