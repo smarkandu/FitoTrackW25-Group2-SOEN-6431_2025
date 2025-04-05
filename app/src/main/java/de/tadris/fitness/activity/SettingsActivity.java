@@ -248,4 +248,19 @@ public class SettingsActivity extends FitoTrackSettingsActivity {
         });
     }
 
+    /**
+     * Handles errors by logging the exception, canceling the progress dialog,
+     * and displaying an error message to the user.
+     *
+     * @param e The exception that was caught.
+     * @param dialogController The progress dialog controller to be canceled.
+     */
+    private void handleError(Exception e, ProgressDialogController dialogController) {
+        e.printStackTrace();
+        mHandler.post(() -> {
+            dialogController.cancel();
+            showErrorDialog(e, R.string.error, R.string.errorExportFailed);
+        });
+    }
+
 }

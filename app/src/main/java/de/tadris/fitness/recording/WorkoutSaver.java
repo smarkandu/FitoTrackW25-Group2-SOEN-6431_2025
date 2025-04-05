@@ -25,6 +25,8 @@ import android.util.Log;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import de.tadris.fitness.Instance;
 import de.tadris.fitness.data.AppDatabase;
@@ -39,6 +41,8 @@ class WorkoutSaver {
     private final Workout workout;
     private final List<WorkoutSample> samples;
     private final AppDatabase db;
+
+    private static final Logger logger = Logger.getLogger(WorkoutSaver.class.getName());
 
     public WorkoutSaver(Context context, Workout workout, List<WorkoutSample> samples) {
         this.context = context;
@@ -119,7 +123,7 @@ class WorkoutSaver {
             }
         } catch (IOException e) {
             // If we can't read the file, we cannot correct the values
-            e.printStackTrace();
+            logger.log(Level.SEVERE, "An exception occurred", e);
         }
     }
 
