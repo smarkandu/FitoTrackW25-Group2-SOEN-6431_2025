@@ -241,7 +241,7 @@ public class SettingsActivity extends FitoTrackSettingsActivity {
      * @param dialogController The progress dialog controller to be canceled.
      */
     private void handleError(Exception e, ProgressDialogController dialogController) {
-        e.printStackTrace();
+        Log.e("SettingsActivity", "Error during backup/import", e);
         mHandler.post(() -> {
             dialogController.cancel();
             showErrorDialog(e, R.string.error, R.string.errorExportFailed);
